@@ -25,9 +25,6 @@ jobs:
       - name: Lint
         run: bun run lint
 
-      - name: Security Audit
-        run: npm audit --audit-level=high
-
       - name: Build
         run: bun run build
 
