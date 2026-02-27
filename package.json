@@ -11,7 +11,8 @@
     "lint": "biome check .",
     "lint:fix": "biome check --write .",
     "format": "biome format --write .",
-    "semantic-release": "semantic-release"
+    "semantic-release": "semantic-release",
+    "prepare": "husky"
   },
   "dependencies": {
     "@astrojs/mdx": "^4.3.13",
@@ -20,8 +21,13 @@
   "devDependencies": {
     "@biomejs/biome": "^2.4.3",
     "@semantic-release/github": "^11.0.0",
+    "husky": "^9.1.7",
+    "lint-staged": "^16.2.7",
     "semantic-release": "^24.0.0",
     "typescript": "^5.0.0"
+  },
+  "lint-staged": {
+    "*.{js,ts,jsx,tsx,astro}": "biome check --write"
   },
   "repository": {
     "type": "git",
