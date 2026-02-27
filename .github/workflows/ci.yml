@@ -25,6 +25,9 @@ jobs:
       - name: Lint
         run: bun run lint
 
+      - name: Security Audit
+        run: bun pm audit
+
       - name: Build
         run: bun run build
 
