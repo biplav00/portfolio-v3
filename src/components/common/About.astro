@@ -1,0 +1,89 @@
+---
+import { getEntry } from 'astro:content';
+
+const aboutEntry = await getEntry('about', 'main');
+const { name, role, location, bio, quickStats, skills, experience, projects } = aboutEntry.data;
+---
+
+<section class="hero" id="about">
+  <h1>{name.split(' ')[0]} <span>{name.split(' ')[1]}</span></h1>
+  <p class="role">{role} // {location}</p>
+  <p class="bio">{bio}</p>
+
+  <div class="note-card">
+    <h4>Quick Stats</h4>
+    <ul>
+      {quickStats.map(stat => <li>{stat}</li>)}
+    </ul>
+  </div>
+
+  <div class="terminal">
+    <div class="terminal-line">
+      <span class="terminal-prompt">$</span>
+      <span class="terminal-cmd">whoami</span>
+    </div>
+    <div class="terminal-line">
+      <span class="terminal-output">biplav-subedi</span>
+    </div>
+    <div class="terminal-line">
+      <span class="terminal-prompt">$</span>
+      <span class="terminal-cmd">cat skills.json</span>
+    </div>
+    <div class="terminal-line">
+      <span class="terminal-output">{'{'} automation, api-testing, performance, cicd {'}'}</span>
+    </div>
+    <div class="terminal-line">
+      <span class="terminal-prompt">$</span>
+      <span class="terminal-cmd">npm run test --all</span>
+    </div>
+    <div class="terminal-line">
+      <span class="terminal-output">247 tests passed</span>
+    </div>
+  </div>
+
+  <div class="status">
+    <span class="status-dot"></span>
+    <span>Available for work</span>
+  </div>
+</section>
+
+<section class="skills" id="skills">
+  <h2 class="section-title">Technical Skills</h2>
+  <div class="skills-grid">
+    {skills.map(skill => (
+      <div class="skill-card">
+        <h3>{skill.category}</h3>
+        <ul>
+          {skill.items.map(item => <li>{item}</li>)}
+        </ul>
+      </div>
+    ))}
+  </div>
+</section>
+
+<section class="experience" id="experience">
+  <h2 class="section-title">Experience</h2>
+  {experience.map(job => (
+    <div class="job">
+      <h3>{job.title}</h3>
+      <div class="company">{job.company}</div>
+      <div class="dates">{job.dates}</div>
+      <p>{job.description}</p>
+    </div>
+  ))}
+</section>
+
+<section class="projects" id="projects">
+  <h2 class="section-title">Projects</h2>
+  <div class="project-list">
+    {projects.map(project => (
+      <div class="project">
+        <h3>{project.title}</h3>
+        <p>{project.description}</p>
+        <div class="tags">
+          {project.tags.map(tag => <span class="tag">{tag}</span>)}
+        </div>
+      </div>
+    ))}
+  </div>
+</section>

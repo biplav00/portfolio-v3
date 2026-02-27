@@ -1,0 +1,95 @@
+<!DOCTYPE html><html lang="en" data-theme="dark" data-astro-cid-37fxchfa> <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="description" content="A comprehensive guide to building your first test automation framework from scratch."><meta name="theme-color" content="#050505"><meta name="color-scheme" content="dark light"><meta property="og:title" content="Getting Started with Test Automation - Biplav Subedi"><meta property="og:description" content="A comprehensive guide to building your first test automation framework from scratch."><meta property="og:image" content="/og-image.png"><meta property="og:type" content="website"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="Getting Started with Test Automation - Biplav Subedi"><meta name="twitter:description" content="A comprehensive guide to building your first test automation framework from scratch."><meta name="twitter:image" content="/og-image.png"><link rel="icon" type="image/svg+xml" href="/favicon.svg"><title>Getting Started with Test Automation - Biplav Subedi</title><link rel="stylesheet" href="/_astro/_slug_.NTbhgHiI.css">
+<style>.post[data-astro-cid-4sn4zg3r]{padding:var(--spacing-2xl) 0;min-height:100vh}.container[data-astro-cid-4sn4zg3r]{max-width:800px;margin:0 auto;padding:0 var(--spacing-md)}.back-link[data-astro-cid-4sn4zg3r]{display:inline-block;font-family:var(--font-mono);font-size:.85rem;color:var(--color-text-secondary);text-decoration:none;margin-bottom:var(--spacing-lg);transition:color .3s ease}.back-link[data-astro-cid-4sn4zg3r]:hover{color:var(--color-text-primary)}.post-header[data-astro-cid-4sn4zg3r]{margin-bottom:var(--spacing-xl)}.post-date[data-astro-cid-4sn4zg3r]{font-family:var(--font-mono);font-size:.85rem;color:var(--color-text-secondary)}.post-title[data-astro-cid-4sn4zg3r]{font-size:2.5rem;font-weight:700;line-height:1.2;margin:var(--spacing-sm) 0;letter-spacing:-.02em}.post-tags[data-astro-cid-4sn4zg3r]{display:flex;gap:.375rem;flex-wrap:wrap;margin-top:.75rem}.tag[data-astro-cid-4sn4zg3r]{font-family:var(--font-mono);font-size:.625rem;color:var(--color-text-secondary);background:var(--bg);border:1px solid var(--border);padding:.25rem .5rem;border-radius:4px}.post-hero-image[data-astro-cid-4sn4zg3r]{margin-bottom:var(--spacing-xl);border-radius:12px;overflow:hidden}.post-hero-image[data-astro-cid-4sn4zg3r] img[data-astro-cid-4sn4zg3r]{width:100%;height:auto;display:block}@media(max-width:768px){.post-title[data-astro-cid-4sn4zg3r]{font-size:1.75rem}}.post-content{max-width:720px;margin:0 auto}.post-content h1,.post-content h2,.post-content h3,.post-content h4{margin-top:var(--spacing-xl);margin-bottom:var(--spacing-md)}.post-content h1{font-size:2rem}.post-content h2{font-size:1.5rem}.post-content h3{font-size:1.25rem}.post-content p{margin-bottom:var(--spacing-md);line-height:1.8;color:var(--color-secondary)}.post-content a{color:var(--color-text-primary);text-decoration:underline;text-underline-offset:4px}.post-content a:hover{opacity:.7}.post-content code{font-family:var(--font-mono);background:#1a1a1a;padding:.2rem .4rem;border-radius:4px;font-size:.9em}.post-content pre{background:#0c0c0c;border:1px solid var(--color-border);border-radius:8px;padding:var(--spacing-md);overflow-x:auto;margin-bottom:var(--spacing-md)}.post-content pre code{background:none;padding:0}.post-content ul,.post-content ol{margin-bottom:var(--spacing-md);padding-left:var(--spacing-lg);color:var(--color-secondary)}.post-content li{margin-bottom:var(--spacing-xs);line-height:1.6}.post-content blockquote{border-left:3px solid var(--color-text-primary);padding-left:var(--spacing-md);margin:var(--spacing-md) 0;color:var(--color-secondary);font-style:italic}.post-content img{max-width:100%;border-radius:8px;margin:var(--spacing-md) 0}.post-content table{width:100%;border-collapse:collapse;margin-bottom:var(--spacing-md)}.post-content th,.post-content td{border:1px solid var(--color-border);padding:.5rem 1rem;text-align:left}.post-content th{background:var(--surface);font-weight:600}
+</style></head> <body data-astro-cid-37fxchfa> <a href="#main-content" class="visually-hidden" data-astro-cid-37fxchfa>Skip to main content</a> <header class="header" data-astro-cid-qmpwvs2w> <div class="header-container" data-astro-cid-qmpwvs2w> <a href="/" class="header-logo" data-astro-cid-qmpwvs2w>biplav00</a> <nav class="header-nav" aria-label="Main navigation" data-astro-cid-qmpwvs2w> <a href="/#about" class="header-link" data-astro-cid-qmpwvs2w>About</a><a href="/#projects" class="header-link" data-astro-cid-qmpwvs2w>Projects</a> <button type="button" class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle theme" data-astro-cid-qmpwvs2w> <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true" data-astro-cid-qmpwvs2w> <circle cx="12" cy="12" r="5" data-astro-cid-qmpwvs2w></circle> <line x1="12" y1="1" x2="12" y2="3" data-astro-cid-qmpwvs2w></line> <line x1="12" y1="21" x2="12" y2="23" data-astro-cid-qmpwvs2w></line> <line x1="4.22" y1="4.22" x2="5.64" y2="5.64" data-astro-cid-qmpwvs2w></line> <line x1="18.36" y1="18.36" x2="19.78" y2="19.78" data-astro-cid-qmpwvs2w></line> <line x1="1" y1="12" x2="3" y2="12" data-astro-cid-qmpwvs2w></line> <line x1="21" y1="12" x2="23" y2="12" data-astro-cid-qmpwvs2w></line> <line x1="4.22" y1="19.78" x2="5.64" y2="18.36" data-astro-cid-qmpwvs2w></line> <line x1="18.36" y1="5.64" x2="19.78" y2="4.22" data-astro-cid-qmpwvs2w></line> </svg> </button> </nav> </div> </header>  <main data-astro-cid-37fxchfa> <div class="main-container" data-astro-cid-37fxchfa>  <article class="post" data-astro-cid-4sn4zg3r> <div class="container" data-astro-cid-4sn4zg3r> <header class="post-header" data-astro-cid-4sn4zg3r> <a href="/blog" class="back-link" data-astro-cid-4sn4zg3r>← Back to Blog</a> <time class="post-date" data-astro-cid-4sn4zg3r>January 15, 2025</time> <h1 class="post-title" data-astro-cid-4sn4zg3r>Getting Started with Test Automation</h1> <div class="post-tags" data-astro-cid-4sn4zg3r> <span class="tag" data-astro-cid-4sn4zg3r>automation</span><span class="tag" data-astro-cid-4sn4zg3r>playwright</span><span class="tag" data-astro-cid-4sn4zg3r>testing</span> </div> </header> <div class="post-hero-image" data-astro-cid-4sn4zg3r> <img src="https://images.unsplash.com/photo-1555949963-ff9fe0c870eb?w=800&h=400&fit=crop" alt="Getting Started with Test Automation" data-astro-cid-4sn4zg3r> </div> <div class="post-content" data-astro-cid-4sn4zg3r> <p>Test automation is essential for delivering quality software at speed. In this guide, I’ll walk you through building a robust test automation framework from scratch.</p>
+<h2 id="why-test-automation">Why Test Automation?</h2>
+<p>Manual testing is time-consuming and prone to human error. Automation helps you:</p>
+<ul>
+<li><strong>Run tests repeatedly</strong> without additional effort</li>
+<li><strong>Catch regressions</strong> early in the development cycle</li>
+<li><strong>Increase test coverage</strong> across browsers and platforms</li>
+<li><strong>Reduce CI/CD pipeline</strong> execution time</li>
+</ul>
+<h2 id="choosing-the-right-tool">Choosing the Right Tool</h2>
+<p>For modern web applications, I recommend <strong>Playwright</strong> because:</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>Feature</th><th>Benefit</th></tr></thead><tbody><tr><td>Auto-wait</td><td>No flaky tests due to timing</td></tr><tr><td>Cross-browser</td><td>Test on Chromium, Firefox, WebKit</td></tr><tr><td>Modern APIs</td><td>TypeScript support out of the box</td></tr><tr><td>Fast execution</td><td>Parallel test execution</td></tr></tbody></table>
+<h2 id="setting-up-your-framework">Setting Up Your Framework</h2>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8;overflow-x:auto" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#B392F0">npm</span><span style="color:#9ECBFF"> init</span><span style="color:#9ECBFF"> playwright@latest</span></span></code></pre>
+<p>This sets up everything you need, including:</p>
+<ul>
+<li>Playwright Test runner</li>
+<li>TypeScript configuration</li>
+<li>Example tests</li>
+</ul>
+<h2 id="automation-progress">Automation Progress</h2>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>Year</th><th>Skill Level</th></tr></thead><tbody><tr><td>2020 - Started</td><td>30%</td></tr><tr><td>2021 - Learning</td><td>55%</td></tr><tr><td>2022 - Intermediate</td><td>75%</td></tr><tr><td>2023 - Advanced</td><td>90%</td></tr><tr><td>2024 - Expert</td><td>95%</td></tr></tbody></table>
+<h2 id="key-takeaways">Key Takeaways</h2>
+<ol>
+<li><strong>Start simple</strong> - Don’t over-engineer your framework initially</li>
+<li><strong>Use Page Object Model</strong> - Keeps tests maintainable</li>
+<li><strong>Implement reporting</strong> - Know what passed/failed instantly</li>
+<li><strong>Integrate with CI/CD</strong> - Automate your testing pipeline</li>
+</ol>
+<h2 id="conclusion">Conclusion</h2>
+<p>Test automation is an investment that pays off over time. Start small, learn continuously, and you’ll see the benefits in your development workflow.</p>
+<hr/>
+<p><em>Have questions? Feel free to reach out!</em></p> </div> </div> </article>  </div> </main> <footer data-astro-cid-l3trhy4j> <div class="container" data-astro-cid-l3trhy4j> <span data-astro-cid-l3trhy4j>© 2026 Biplav Subedi</span> <span data-astro-cid-l3trhy4j>All rights reserved</span> </div> </footer>  <script>
+      function toggleTheme() {
+        const html = document.documentElement;
+        const current = html.getAttribute('data-theme');
+        html.setAttribute('data-theme', current === 'dark' ? 'light' : 'dark');
+      }
+    </script> </body> </html>   

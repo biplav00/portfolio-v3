@@ -1,0 +1,67 @@
+{
+  "name": "Biplav Subedi",
+  "role": "QA Engineer",
+  "location": "Kathmandu, Nepal",
+  "bio": "Results-driven QA Engineer specializing in test automation, API testing, and quality assurance. Passionate about building robust testing frameworks and ensuring exceptional software quality.",
+  "quickStats": [
+    "6+ Years",
+    "247 Tests",
+    "100% Pass",
+    "Nepal"
+  ],
+  "skills": [
+    {
+      "category": "Test Automation",
+      "items": ["Playwright", "Selenium", "Cypress", "Robot Framework"]
+    },
+    {
+      "category": "API Testing",
+      "items": ["Postman", "Rest Assured", "SoapUI", "Charles Proxy"]
+    },
+    {
+      "category": "Performance",
+      "items": ["JMeter", "k6", "Lighthouse", "GTmetrix"]
+    },
+    {
+      "category": "DevOps",
+      "items": ["Git", "Docker", "Jenkins", "GitHub Actions"]
+    }
+  ],
+  "experience": [
+    {
+      "title": "Senior QA Engineer",
+      "company": "Karobar Pvt. Ltd.",
+      "dates": "2022 — Present",
+      "description": "Leading test automation, implementing CI/CD pipelines, mentoring junior testers."
+    },
+    {
+      "title": "QA Engineer",
+      "company": "Encoders Inc.",
+      "dates": "2020 — 2022",
+      "description": "Developed automated test scripts, performed API testing, ensured product quality."
+    },
+    {
+      "title": "Junior QA Engineer",
+      "company": "Tech Solutions Nepal",
+      "dates": "2018 — 2020",
+      "description": "Executed manual test cases, reported bugs, collaborated with development teams."
+    }
+  ],
+  "projects": [
+    {
+      "title": "Test Automation Framework",
+      "description": "Custom Playwright framework with Page Object Model pattern for web applications.",
+      "tags": ["Playwright", "TypeScript", "POM"]
+    },
+    {
+      "title": "API Testing Suite",
+      "description": "Comprehensive Postman collection with automated assertions and CI integration.",
+      "tags": ["Postman", "Newman", "CI/CD"]
+    },
+    {
+      "title": "Performance Dashboard",
+      "description": "Real-time k6 performance monitoring with Grafana visualization and alerting.",
+      "tags": ["k6", "Grafana", "InfluxDB"]
+    }
+  ]
+}
