@@ -3,12 +3,7 @@
   "role": "QA Engineer",
   "location": "Kathmandu, Nepal",
   "bio": "Results-driven QA Engineer specializing in test automation, API testing, and quality assurance. Passionate about building robust testing frameworks and ensuring exceptional software quality.",
-  "quickStats": [
-    "6+ Years",
-    "247 Tests",
-    "100% Pass",
-    "Nepal"
-  ],
+  "quickStats": ["6+ Years", "247 Tests", "100% Pass", "Nepal"],
   "skills": [
     {
       "category": "Test Automation",
