@@ -26,7 +26,7 @@ jobs:
         run: bun run lint
 
       - name: Security Audit
-        run: bun pm audit
+        run: bun pm scan
 
       - name: Build
         run: bun run build
