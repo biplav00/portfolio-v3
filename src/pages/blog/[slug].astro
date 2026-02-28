@@ -24,10 +24,12 @@ const formatDate = (date: Date) => {
 
 <BaseLayout title={`${post.data.title} - Biplav Subedi`} description={post.data.description}>
   <article class="blog-post">
-    <header class="blog-post-header">
-      <a href="/blog" class="back-link">← Back to Blog</a>
-      <time class="post-date">{formatDate(post.data.publishDate)}</time>
-      <h1 class="post-title">{post.data.title}</h1>
+    <a href="/blog" class="back-link">← Back to Posts</a>
+    
+    <h1 class="post-title">{post.data.title}</h1>
+
+    <div class="post-meta">
+      <time>{formatDate(post.data.publishDate)}</time>
       {post.data.tags && (
         <div class="post-tags">
           {post.data.tags.map(tag => (
@@ -35,7 +37,7 @@ const formatDate = (date: Date) => {
           ))}
         </div>
       )}
-    </header>
+    </div>
 
     {post.data.coverImage && (
       <div class="post-hero-image">
