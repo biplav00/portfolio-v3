@@ -5,20 +5,15 @@ const navLinks = [
 ];
 ---
 
-<header class="header">
+<header>
   <div class="header-container">
     <a href="/" class="header-logo">biplav00</a>
-    <nav class="header-nav" aria-label="Main navigation">
+    <nav class="header-nav">
       {navLinks.map(link => (
         <a href={link.href} class="header-link">{link.label}</a>
       ))}
-      <button
-        type="button"
-        class="theme-toggle"
-        onclick="toggleTheme()"
-        aria-label="Toggle theme"
-      >
-        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+      <button type="button" class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle theme">
+        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <circle cx="12" cy="12" r="5" />
           <line x1="12" y1="1" x2="12" y2="3" />
           <line x1="12" y1="21" x2="12" y2="23" />
@@ -33,80 +28,3 @@ const navLinks = [
     </nav>
   </div>
 </header>
-
-<style>
-  .header {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    z-index: 100;
-    background: var(--bg);
-    border-bottom: 1px solid var(--border);
-    padding: 1rem 2rem;
-    display: flex;
-    justify-content: center;
-    transition: background-color 0.2s ease;
-  }
-
-  .header-container {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    width: 100%;
-    max-width: 800px;
-  }
-
-  .header-logo {
-    font-family: var(--font-mono);
-    font-size: 0.875rem;
-    font-weight: 600;
-    color: #ff4444;
-    text-decoration: none;
-  }
-
-  .header-nav {
-    display: flex;
-    align-items: center;
-    gap: 1.5rem;
-  }
-
-  .header-link {
-    font-family: var(--font-mono);
-    font-size: 0.8125rem;
-    color: var(--color-text-secondary);
-    text-decoration: none;
-    transition: color 0.15s ease;
-  }
-
-  .header-link:hover {
-    color: var(--color-text-primary);
-  }
-
-  .header-link:focus-visible {
-    outline: 2px solid var(--color-text-muted);
-    outline-offset: 4px;
-  }
-
-  .theme-toggle {
-    background: none;
-    border: none;
-    padding: 0.5rem;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: var(--color-text-primary);
-  }
-
-  .theme-toggle svg {
-    width: 20px;
-    height: 20px;
-  }
-
-  .theme-toggle:focus-visible {
-    outline: 2px solid var(--color-text-muted);
-    outline-offset: 2px;
-    border-radius: 4px;
-  }
-</style>
