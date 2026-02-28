@@ -44,10 +44,19 @@ const { title, description = 'QA Engineer Portfolio', image = '/og-image.png' } 
     </main>
     <Footer />
     <script is:inline>
+      const savedTheme = localStorage.getItem('theme');
+      if (savedTheme) {
+        document.documentElement.setAttribute('data-theme', savedTheme);
+      } else if (window.matchMedia('(prefers-color-scheme: light)').matches) {
+        document.documentElement.setAttribute('data-theme', 'light');
+      }
+
       function toggleTheme() {
         const html = document.documentElement;
         const current = html.getAttribute('data-theme');
-        html.setAttribute('data-theme', current === 'dark' ? 'light' : 'dark');
+        const newTheme = current === 'dark' ? 'light' : 'dark';
+        html.setAttribute('data-theme', newTheme);
+        localStorage.setItem('theme', newTheme);
       }
     </script>
     <script defer src="/_vercel/insights/script.js"></script>
