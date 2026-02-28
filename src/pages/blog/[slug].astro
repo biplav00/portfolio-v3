@@ -1,6 +1,7 @@
 ---
 import { getCollection } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import { formatDate } from '../../utils/format';
 
 export async function getStaticPaths() {
   const posts = await getCollection('posts');
@@ -13,33 +14,55 @@ export async function getStaticPaths() {
 const { post } = Astro.props;
 const { Content } = await post.render();
 
-const formatDate = (date: Date) => {
-  return date.toLocaleDateString('en-US', {
-    year: 'numeric',
-    month: 'long',
-    day: 'numeric',
-  });
-};
-
-const calculateReadTime = (content: string) => {
+const calculateReadTime = (content?: string) => {
+  if (!content) return '1 min read';
   const wordsPerMinute = 200;
-  const words = content.split(/\s+/).length;
-  const minutes = Math.ceil(words / wordsPerMinute);
+  const words = content.split(/\s+/).filter(Boolean).length;
+  const minutes = Math.max(1, Math.ceil(words / wordsPerMinute));
   return `${minutes} min read`;
 };
 
 const readTime = calculateReadTime(post.body);
+
+const siteUrl = 'https://biplavsubedi.com.np';
+const articleJsonLd = JSON.stringify({
+  '@context': 'https://schema.org',
+  '@type': 'Article',
+  headline: post.data.title,
+  description: post.data.description,
+  datePublished: post.data.publishDate.toISOString(),
+  author: {
+    '@type': 'Person',
+    name: 'Biplav Subedi',
+    url: siteUrl,
+  },
+  publisher: {
+    '@type': 'Person',
+    name: 'Biplav Subedi',
+    url: siteUrl,
+  },
+  mainEntityOfPage: {
+    '@type': 'WebPage',
+    '@id': `${siteUrl}/blog/${post.slug}`,
+  },
+  ...(post.data.coverImage && {
+    image: post.data.coverImage.startsWith('http')
+      ? post.data.coverImage
+      : `${siteUrl}${post.data.coverImage}`,
+  }),
+});
 ---
 
-<BaseLayout title={`${post.data.title} - Biplav Subedi`} description={post.data.description}>
+<BaseLayout title={`${post.data.title} - Biplav Subedi`} description={post.data.description} type="article">
+  <script slot="head" type="application/ld+json" set:html={articleJsonLd} />
   <article class="blog-post">
     <a href="/blog" class="back-link">← Back to Posts</a>
     
     <h1 class="post-title">{post.data.title}</h1>
 
     <div class="post-meta">
-      <time>{formatDate(post.data.publishDate)}</time>
-      <span>·</span>
+      <time datetime={post.data.publishDate.toISOString()}>{formatDate(post.data.publishDate)}</time>
+      <span aria-hidden="true">·</span>
       <span>{readTime}</span>
       {post.data.tags && (
         <div class="post-tags">
