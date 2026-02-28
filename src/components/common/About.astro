@@ -3,10 +3,12 @@ import { getEntry } from 'astro:content';
 
 const aboutEntry = await getEntry('about', 'main');
 const { name, role, location, bio, quickStats, skills, experience, projects } = aboutEntry.data;
+const [firstName, ...rest] = name.split(' ');
+const lastName = rest.join(' ');
 ---
 
 <section class="hero" id="about">
-  <h1>{name.split(' ')[0]} <span>{name.split(' ')[1]}</span></h1>
+  <h1>{firstName} {lastName && <span>{lastName}</span>}</h1>
   <p class="role">{role} // {location}</p>
   <p class="bio">{bio}</p>
 
