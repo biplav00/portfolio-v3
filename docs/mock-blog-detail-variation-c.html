@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Getting Started with Test Automation - Biplav Subedi</title>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #050505;
+      --surface: #0f0f0f;
+      --border: #1a1a1a;
+      --border-hover: #2a2a2a;
+      --text: #e5e5e5;
+      --text-muted: #737373;
+      --text-dim: #404040;
+      --mono: "JetBrains Mono", monospace;
+      --sans: "Outfit", sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: var(--sans);
+      background-color: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      font-size: 15px;
+    }
+
+    header.site-header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 100;
+      background: var(--bg);
+      border-bottom: 1px solid var(--border);
+      padding: 1rem 2rem;
+      display: flex;
+      justify-content: center;
+    }
+
+    .header-container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      width: 100%;
+      max-width: 800px;
+    }
+
+    .header-logo {
+      font-family: var(--mono);
+      font-size: 0.875rem;
+      font-weight: 600;
+      color: #ff4444;
+    }
+
+    .header-nav {
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+    }
+
+    .header-nav a {
+      font-family: var(--mono);
+      font-size: 0.8125rem;
+      color: var(--text-muted);
+      text-decoration: none;
+    }
+
+    .header-nav a:hover {
+      color: var(--text);
+    }
+
+    main {
+      margin-top: 4rem;
+      padding: 1.5rem 1rem;
+      max-width: 800px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .blog-post {
+      padding: 1rem 0;
+    }
+
+    /* Section title style */
+    .section-title {
+      font-family: var(--mono);
+      font-size: 0.6875rem;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--text-dim);
+      margin-bottom: 1rem;
+      padding-bottom: 0.625rem;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .post-breadcrumb {
+      font-family: var(--mono);
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      margin-bottom: 1rem;
+    }
+
+    .post-breadcrumb a {
+      color: var(--text-muted);
+      text-decoration: none;
+    }
+
+    .post-breadcrumb a:hover {
+      color: var(--text);
+    }
+
+    .post-breadcrumb span {
+      color: var(--text-dim);
+    }
+
+    .post-title {
+      font-size: 1.75rem;
+      font-weight: 700;
+      line-height: 1.3;
+      letter-spacing: -0.02em;
+      margin-bottom: 0.5rem;
+    }
+
+    .post-meta {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      margin-bottom: 1rem;
+      font-family: var(--mono);
+      font-size: 0.6875rem;
+      color: var(--text-dim);
+    }
+
+    .post-tags {
+      display: flex;
+      gap: 0.375rem;
+    }
+
+    .tag {
+      font-family: var(--mono);
+      font-size: 0.5625rem;
+      color: var(--text-muted);
+      background: var(--bg);
+      border: 1px solid var(--border);
+      padding: 0.25rem 0.5rem;
+      border-radius: 4px;
+    }
+
+    .post-hero-image {
+      margin-bottom: 1.5rem;
+      border-radius: 8px;
+      overflow: hidden;
+    }
+
+    .post-hero-image img {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    .blog-content {
+      max-width: 100%;
+    }
+
+    .blog-content p {
+      margin-bottom: 0.875rem;
+      color: var(--text-muted);
+      line-height: 1.7;
+      font-size: 0.9375rem;
+    }
+
+    .blog-content h2 {
+      margin-top: 1.25rem;
+      margin-bottom: 0.5rem;
+      font-size: 1.125rem;
+    }
+
+    .blog-content ul {
+      margin-bottom: 0.875rem;
+      padding-left: 1.25rem;
+      color: var(--text-muted);
+    }
+
+    .blog-content li {
+      margin-bottom: 0.25rem;
+      font-size: 0.9375rem;
+    }
+
+    .blog-content code {
+      font-family: var(--mono);
+      background: var(--surface);
+      padding: 0.125rem 0.375rem;
+      border-radius: 4px;
+      font-size: 0.8125rem;
+    }
+
+    .blog-content pre {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 0.875rem;
+      overflow-x: auto;
+      margin-bottom: 1rem;
+    }
+
+    .blog-content pre code {
+      background: none;
+      padding: 0;
+      font-size: 0.8125rem;
+    }
+
+    .blog-content blockquote {
+      border-left: 3px solid var(--text);
+      padding-left: 0.875rem;
+      margin: 0.875rem 0;
+      color: var(--text-muted);
+      font-style: italic;
+      font-size: 0.9375rem;
+    }
+
+    footer {
+      padding: 1rem 0;
+      border-top: 1px solid var(--border);
+      margin-top: 2rem;
+    }
+
+    footer .container {
+      display: flex;
+      justify-content: space-between;
+      font-family: var(--mono);
+      font-size: 0.6875rem;
+      color: var(--text-dim);
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 0 1rem;
+    }
+  </style>
+</head>
+<body>
+  <header class="site-header">
+    <div class="header-container">
+      <a href="/" class="header-logo">biplav00</a>
+      <nav class="header-nav">
+        <a href="/">About</a>
+        <a href="/blog">Blogs</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <article class="blog-post">
+      <h2 class="section-title">Blog</h2>
+
+      <div class="post-breadcrumb">
+        <a href="/">Home</a> <span>›</span> <a href="/blog">Blog</a> <span>›</span> Getting Started with Test Automation
+      </div>
+
+      <h1 class="post-title">Getting Started with Test Automation</h1>
+
+      <div class="post-meta">
+        <time>January 15, 2024</time>
+        <span>·</span>
+        <span>5 min read</span>
+      </div>
+
+      <div class="post-tags">
+        <span class="tag">testing</span>
+        <span class="tag">automation</span>
+        <span class="tag">beginner</span>
+      </div>
+
+      <div class="post-hero-image">
+        <img src="https://images.unsplash.com/photo-1555949963-ff9fe0c870eb?w=1200&h=500&fit=crop" alt="Test Automation">
+      </div>
+
+      <div class="blog-content">
+        <p>Test automation is an essential skill for modern QA engineers. In this post, I'll walk you through the fundamentals of getting started with test automation and share some best practices I've learned over the years.</p>
+
+        <h2>Why Test Automation Matters</h2>
+        <p>Manual testing is valuable, but as your application grows, it becomes impractical to test everything manually. Automation allows you to:</p>
+        <ul>
+          <li>Run tests faster and more frequently</li>
+          <li>Reduce human error in repetitive tasks</li>
+          <li>Get immediate feedback on code changes</li>
+          <li>Cover more test scenarios in less time</li>
+        </ul>
+
+        <h2>Choosing the Right Tools</h2>
+        <p>There are many test automation frameworks available. The choice depends on your tech stack and requirements.</p>
+
+        <pre><code>// Playwright example
+import { test, expect } from '@playwright/test';
+
+test('homepage has title', async ({ page }) => {
+  await page.goto('https://example.com');
+  await expect(page).toHaveTitle(/Example/);
+});</code></pre>
+
+        <blockquote>
+          "The best test automation framework is one that your team can maintain and that fits seamlessly into your development workflow."
+        </blockquote>
+
+        <h2>Best Practices</h2>
+        <p>Here are some key practices to follow:</p>
+        <ul>
+          <li>Start with a solid test strategy</li>
+          <li>Focus on stable, critical paths first</li>
+          <li>Keep tests independent and isolated</li>
+          <li>Use meaningful test names and assertions</li>
+          <li>Regularly review and refactor test code</li>
+        </ul>
+
+        <p>Remember, test automation is a journey, not a destination. Start small, learn from your mistakes, and continuously improve your approach.</p>
+      </div>
+    </article>
+  </main>
+
+  <footer>
+    <div class="container">
+      <span>© 2024 Biplav Subedi</span>
+      <span>Built with Astro</span>
+    </div>
+  </footer>
+</body>
+</html>
