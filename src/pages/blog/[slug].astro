@@ -20,6 +20,15 @@ const formatDate = (date: Date) => {
     day: 'numeric',
   });
 };
+
+const calculateReadTime = (content: string) => {
+  const wordsPerMinute = 200;
+  const words = content.split(/\s+/).length;
+  const minutes = Math.ceil(words / wordsPerMinute);
+  return `${minutes} min read`;
+};
+
+const readTime = calculateReadTime(post.body);
 ---
 
 <BaseLayout title={`${post.data.title} - Biplav Subedi`} description={post.data.description}>
@@ -30,6 +39,8 @@ const formatDate = (date: Date) => {
 
     <div class="post-meta">
       <time>{formatDate(post.data.publishDate)}</time>
+      <span>·</span>
+      <span>{readTime}</span>
       {post.data.tags && (
         <div class="post-tags">
           {post.data.tags.map(tag => (
