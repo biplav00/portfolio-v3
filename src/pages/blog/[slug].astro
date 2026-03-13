@@ -4,7 +4,7 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 import { formatDate } from '../../utils/format';
 
 export async function getStaticPaths() {
-  const posts = await getCollection('posts');
+  const posts = await getCollection('posts', ({ data }) => !data.draft);
   return posts.map((post) => ({
     params: { slug: post.slug },
     props: { post },
@@ -56,20 +56,29 @@ const articleJsonLd = JSON.stringify({
 <BaseLayout title={`${post.data.title} - Biplav Subedi`} description={post.data.description} type="article">
   <script slot="head" type="application/ld+json" set:html={articleJsonLd} />
   <article class="blog-post">
-    <a href="/blog" class="back-link">← Back to Posts</a>
-    
-    <h1 class="post-title">{post.data.title}</h1>
+    <a href="/blog" class="back-link">
+      <svg aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
+      back to blogs
+    </a>
+
+    <div class="post-title-wrap">
+      <div class="post-title-border"></div>
+      <h1 class="post-title">{post.data.title}</h1>
+    </div>
 
     <div class="post-meta">
       <time datetime={post.data.publishDate.toISOString()}>{formatDate(post.data.publishDate)}</time>
-      <span aria-hidden="true">·</span>
+      <span aria-hidden="true">&middot;</span>
       <span>{readTime}</span>
       {post.data.tags && (
-        <div class="post-tags">
-          {post.data.tags.map(tag => (
-            <span class="tag">{tag}</span>
-          ))}
-        </div>
+        <>
+          <span aria-hidden="true">&middot;</span>
+          <div class="post-tags">
+            {post.data.tags.map(tag => (
+              <span class="tag">{tag}</span>
+            ))}
+          </div>
+        </>
       )}
     </div>
 

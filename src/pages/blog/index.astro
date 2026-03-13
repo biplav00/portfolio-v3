@@ -9,13 +9,28 @@ const sortedPosts = posts.sort(
 );
 ---
 
-<BaseLayout title="Blog - Biplav Subedi" description="Technical blog about QA engineering, testing best practices, and software quality">
+<BaseLayout title="Blogs - Biplav Subedi" description="Technical blog about QA engineering, testing best practices, and software quality">
   <section class="blog-list">
-    <h1 class="section-title">Blog</h1>
+    <h1 class="section-title">blogs</h1>
 
     {sortedPosts.length === 0 && (
       <div class="blog-empty">
-        <p>No posts yet. Check back soon!</p>
+        <div class="blog-empty-terminal">
+          <div class="mini-term-header">
+            <span class="mini-dot red"></span>
+            <span class="mini-dot yellow"></span>
+            <span class="mini-dot green"></span>
+            <span class="mini-term-title">blog</span>
+          </div>
+          <div class="blog-empty-body">
+            <p class="blog-empty-cmd"><span class="terminal-prompt">~</span> <span class="terminal-cmd">ls posts/</span></p>
+            <p class="blog-empty-output">no posts found.</p>
+            <p class="blog-empty-cmd"><span class="terminal-prompt">~</span> <span class="terminal-cmd">echo $STATUS</span></p>
+            <p class="blog-empty-output">drafting — check back soon.</p>
+            <p class="blog-empty-cursor"><span class="terminal-prompt">~</span> <span class="mini-cursor"></span></p>
+          </div>
+        </div>
+        <a href="/" class="blog-empty-link">← back home</a>
       </div>
     )}
 
@@ -25,16 +40,18 @@ const sortedPosts = posts.sort(
           <a href={`/blog/${post.slug}`}>
             <div class="post-content">
               <time class="post-date" datetime={post.data.publishDate.toISOString()}>{formatDate(post.data.publishDate)}</time>
-              <h2 class="post-title">{post.data.title}</h2>
+              <h2 class="post-title"><span class="post-title-chevron">&gt;</span> {post.data.title}</h2>
               <p class="post-excerpt">{post.data.description}</p>
-              {post.data.tags && (
-                <div class="post-tags">
-                  {post.data.tags.map(tag => (
-                    <span class="tag">{tag}</span>
-                  ))}
-                </div>
-              )}
-              <span class="read-more" aria-hidden="true">Read more →</span>
+              <div class="post-bottom">
+                {post.data.tags && (
+                  <div class="post-tags">
+                    {post.data.tags.map(tag => (
+                      <span class="tag">{tag}</span>
+                    ))}
+                  </div>
+                )}
+                <span class="read-more" aria-hidden="true">Read more →</span>
+              </div>
             </div>
           </a>
         </article>

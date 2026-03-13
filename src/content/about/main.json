@@ -2,61 +2,45 @@
   "name": "Biplav Subedi",
   "role": "QA Engineer",
   "location": "Kathmandu, Nepal",
-  "bio": "Results-driven QA Engineer specializing in test automation, API testing, and quality assurance. Passionate about building robust testing frameworks and ensuring exceptional software quality.",
-  "quickStats": ["6+ Years", "247 Tests", "100% Pass", "Nepal"],
+  "bio": "QA Engineer focused on test automation, CI/CD integration, and building reliable software. Currently at Yirifi.ai.",
+  "quickStats": ["2+ Years", "Playwright", "CI/CD", "Nepal"],
   "skills": [
     {
-      "category": "Test Automation",
-      "items": ["Playwright", "Selenium", "Cypress", "Robot Framework"]
+      "category": "Programming",
+      "items": ["Python", "TypeScript", "SQL"]
     },
     {
-      "category": "API Testing",
-      "items": ["Postman", "Rest Assured", "SoapUI", "Charles Proxy"]
+      "category": "Automation",
+      "items": ["Playwright", "Selenium"]
     },
     {
-      "category": "Performance",
-      "items": ["JMeter", "k6", "Lighthouse", "GTmetrix"]
+      "category": "API & Performance",
+      "items": ["Postman", "REST API", "JMeter"]
     },
     {
-      "category": "DevOps",
-      "items": ["Git", "Docker", "Jenkins", "GitHub Actions"]
+      "category": "Tools & CI/CD",
+      "items": ["GitHub Actions", "Git", "Jira", "Zoho"]
     }
   ],
   "experience": [
     {
-      "title": "Senior QA Engineer",
-      "company": "Karobar Pvt. Ltd.",
-      "dates": "2022 — Present",
-      "description": "Leading test automation, implementing CI/CD pipelines, mentoring junior testers."
-    },
-    {
       "title": "QA Engineer",
-      "company": "Encoders Inc.",
-      "dates": "2020 — 2022",
-      "description": "Developed automated test scripts, performed API testing, ensured product quality."
+      "company": "Yirifi.ai",
+      "dates": "July 2025 – Present",
+      "description": "Owning automation strategy, building Playwright/TypeScript frameworks, integrating CI/CD pipelines, and mentoring junior QA engineers."
     },
     {
-      "title": "Junior QA Engineer",
-      "company": "Tech Solutions Nepal",
-      "dates": "2018 — 2020",
-      "description": "Executed manual test cases, reported bugs, collaborated with development teams."
+      "title": "Software QA Engineer",
+      "company": "Karobar Pvt. Ltd.",
+      "dates": "May 2024 – May 2025",
+      "description": "Led automation for ERP systems using Selenium, designed test strategies, performed API and load testing with Postman and JMeter."
+    },
+    {
+      "title": "QA Intern",
+      "company": "Encoders Inc.",
+      "dates": "Oct 2023 – March 2024",
+      "description": "Assisted in testing software applications, collaborating with the QA team on bug identification and test case development."
     }
   ],
-  "projects": [
-    {
-      "title": "Test Automation Framework",
-      "description": "Custom Playwright framework with Page Object Model pattern for web applications.",
-      "tags": ["Playwright", "TypeScript", "POM"]
-    },
-    {
-      "title": "API Testing Suite",
-      "description": "Comprehensive Postman collection with automated assertions and CI integration.",
-      "tags": ["Postman", "Newman", "CI/CD"]
-    },
-    {
-      "title": "Performance Dashboard",
-      "description": "Real-time k6 performance monitoring with Grafana visualization and alerting.",
-      "tags": ["k6", "Grafana", "InfluxDB"]
-    }
-  ]
+  "projects": []
 }

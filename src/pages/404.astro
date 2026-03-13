@@ -4,52 +4,90 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 
 <BaseLayout title="404 - Page Not Found" description="The page you're looking for doesn't exist" noindex>
   <section class="not-found">
+    <div class="not-found-bg" aria-hidden="true">
+      <span class="bg-code" style="top: 15%; left: 5%;">expect(page).toBeVisible();</span>
+      <span class="bg-code" style="top: 25%; right: 5%;">test.fail();</span>
+      <span class="bg-code" style="top: 50%; left: 8%;">if (THROW_ERR_PAGE_NOT_FOUND)</span>
+      <span class="bg-code" style="top: 55%; right: 3%;">response.STATUS_CODE = 404</span>
+      <span class="bg-code" style="top: 75%; left: 10%;">ERROR: 404; page not found</span>
+      <span class="bg-code" style="top: 80%; right: 5%;">assert.strictEqual(status, 200);</span>
+    </div>
+    <div class="not-found-glitch" aria-hidden="true">
+      <span class="glitch-layer glitch-1">404</span>
+      <span class="glitch-layer glitch-2">404</span>
+      <span class="glitch-layer glitch-3">404</span>
+    </div>
     <span class="not-found-code">404</span>
     <h1>Page not found</h1>
     <p>The page you're looking for doesn't exist or has been moved.</p>
-    <a href="/" class="not-found-link">← Back to Home</a>
+    <a href="/" class="not-found-link">
+      <svg aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
+      back to home
+    </a>
   </section>
 </BaseLayout>
 
 <style>
   .not-found {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-    min-height: 60vh;
-    gap: 1rem;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .not-found-bg {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+  }
+
+  .bg-code {
+    position: absolute;
+    font-family: var(--mono);
+    font-size: 14px;
+    color: var(--text-dim);
+    opacity: 0.3;
+    white-space: nowrap;
+  }
+
+  .not-found-glitch {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -120%);
+    pointer-events: none;
+  }
+
+  .glitch-layer {
+    position: absolute;
+    font-family: var(--mono);
+    font-size: 120px;
+    font-weight: 700;
+    white-space: nowrap;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+  }
+
+  .glitch-1 {
+    color: var(--text-dim);
+    opacity: 0.15;
+    transform: translate(calc(-50% - 20px), calc(-50% - 10px));
+  }
+
+  .glitch-2 {
+    color: var(--text-dim);
+    opacity: 0.08;
+    transform: translate(calc(-50% + 10px), calc(-50% + 5px));
+  }
+
+  .glitch-3 {
+    color: var(--border);
+    opacity: 0.2;
+    transform: translate(-50%, -50%);
+    clip-path: polygon(0 0, 100% 0, 100% 30%, 0 30%);
   }
 
   .not-found-code {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 6rem;
-    font-weight: 700;
-    color: var(--text-dim);
-    line-height: 1;
-  }
-
-  .not-found h1 {
-    font-size: 1.5rem;
-    font-weight: 600;
-    color: var(--text);
-  }
-
-  .not-found p {
-    color: var(--text-muted);
-    max-width: 400px;
-  }
-
-  .not-found-link {
-    margin-top: 1rem;
-    color: var(--accent-red);
-    text-decoration: none;
-    font-weight: 500;
-    transition: opacity 0.15s;
-  }
-
-  .not-found-link:hover {
-    opacity: 0.8;
+    position: relative;
+    z-index: 1;
   }
 </style>

@@ -3,54 +3,202 @@ import { getEntry } from 'astro:content';
 
 const aboutEntry = await getEntry('about', 'main');
 const { name, role, location, bio, quickStats, skills, experience, projects } = aboutEntry.data;
-const [firstName, ...rest] = name.split(' ');
-const lastName = rest.join(' ');
 ---
 
 <section class="hero" id="about">
-  <h1>{firstName} {lastName && <span>{lastName}</span>}</h1>
-  <p class="role">{role} // {location}</p>
-  <p class="bio">{bio}</p>
+  <div class="hero-top">
+    <div class="hero-text">
+      <h1>{name}</h1>
+      <p class="role">{role} &bull; {location}</p>
+      <p class="bio">{bio}</p>
+      <a href="/resume.pdf" download class="resume-btn" aria-label="Download Resume">
+        <svg aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24" width="14" height="14"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+        resume.pdf
+      </a>
+    </div>
+    <div class="hero-graphic" aria-hidden="true">
+      <div class="mini-terminal">
+        <div class="mini-term-header">
+          <span class="mini-dot red"></span>
+          <span class="mini-dot yellow"></span>
+          <span class="mini-dot green"></span>
+          <span class="mini-term-title">test-results</span>
+        </div>
+        <div class="mini-term-body">
+          <div class="mini-line"><span class="mini-pass">PASS</span><span class="mini-file">auth.spec.ts</span></div>
+          <div class="mini-line"><span class="mini-pass">PASS</span><span class="mini-file">api.spec.ts</span></div>
+          <div class="mini-line"><span class="mini-pass">PASS</span><span class="mini-file">e2e.spec.ts</span></div>
+          <div class="mini-line"><span class="mini-cursor"></span></div>
+        </div>
+      </div>
+    </div>
+  </div>
 
   <div class="note-card">
-    <h4>Quick Stats</h4>
-    <ul>
-      {quickStats.map(stat => <li>{stat}</li>)}
-    </ul>
-  </div>
-
-  <div class="terminal">
-    <div class="terminal-line">
-      <span class="terminal-prompt">$</span>
-      <span class="terminal-cmd">whoami</span>
-    </div>
-    <div class="terminal-line">
-      <span class="terminal-output">biplav-subedi</span>
-    </div>
-    <div class="terminal-line">
-      <span class="terminal-prompt">$</span>
-      <span class="terminal-cmd">cat skills.json</span>
-    </div>
-    <div class="terminal-line">
-      <span class="terminal-output">{'{'} automation, api-testing, performance, cicd {'}'}</span>
-    </div>
-    <div class="terminal-line">
-      <span class="terminal-prompt">$</span>
-      <span class="terminal-cmd">npm run test --all</span>
-    </div>
-    <div class="terminal-line">
-      <span class="terminal-output">247 tests passed</span>
+    <span class="note-card-pin" aria-hidden="true">📌</span>
+    <h4>quick stats</h4>
+    <div class="badge-row">
+      {quickStats.map(stat => <span class="badge">{stat}</span>)}
     </div>
   </div>
 
-  <div class="status">
-    <span class="status-dot"></span>
-    <span>Available for work</span>
+  <div class="terminal" id="interactive-terminal">
+    <div class="terminal-header">
+      <div class="terminal-dots">
+        <span class="terminal-dot red"></span>
+        <span class="terminal-dot yellow"></span>
+        <span class="terminal-dot green"></span>
+      </div>
+      <span class="terminal-name">terminal</span>
+      <span class="terminal-passed">PASSED</span>
+    </div>
+    <div class="terminal-history" id="terminal-history">
+      <div class="terminal-line">
+        <span class="terminal-prompt">~</span>
+        <span class="terminal-cmd">whoami</span>
+      </div>
+      <div class="terminal-output">{name} — {role}</div>
+      <div class="terminal-line">
+        <span class="terminal-prompt">~</span>
+        <span class="terminal-cmd">cat skills.json</span>
+      </div>
+      <div class="terminal-json">
+        <span class="terminal-json-key">{'{'}</span>
+        {skills.map((skill, i) => (
+          <div class="terminal-json-line">
+            <span class="terminal-json-key">&nbsp;&nbsp;"{skill.category.toLowerCase()}":</span>
+            <span class="terminal-json-value">{JSON.stringify(skill.items)}</span>
+          </div>
+        ))}
+        <span class="terminal-json-key">{'}'}</span>
+      </div>
+      <div class="terminal-line">
+        <span class="terminal-prompt">~</span>
+        <span class="terminal-cmd">npm run test</span>
+      </div>
+      <div class="terminal-success">✓ all tests passed (3.2s)</div>
+    </div>
+    <div class="terminal-input-line">
+      <span class="terminal-prompt">~</span>
+      <input type="text" class="terminal-input" id="terminal-input" placeholder="type 'help' for commands..." autocomplete="off" spellcheck="false" aria-label="Terminal input" />
+    </div>
   </div>
+
+  <script is:inline define:vars={{ name, role, bio, skills, experience, projects, quickStats }}>
+    (function() {
+      const input = document.getElementById('terminal-input');
+      const history = document.getElementById('terminal-history');
+      if (!input || !history) return;
+
+      const cmdHistory = [];
+      let historyIndex = -1;
+
+      const commands = {
+        whoami: () => ({ text: `${name} — ${role}` }),
+        help: () => ({ text: 'Available commands:\n  whoami           — who am I?\n  cat skills.json  — view skills\n  cat bio.txt      — read bio\n  ls projects/     — list projects\n  ls experience/   — list experience\n  npm run test     — run tests\n  pwd              — current directory\n  date             — current date\n  uptime           — years of experience\n  echo [text]      — echo text back\n  clear            — clear terminal\n  help             — show this message' }),
+        clear: () => ({ action: 'clear' }),
+        'cat skills.json': () => {
+          const obj = {};
+          skills.forEach(s => { obj[s.category.toLowerCase()] = s.items; });
+          return { pre: true, text: JSON.stringify(obj, null, 2) };
+        },
+        'cat bio.txt': () => ({ text: bio }),
+        'npm run test': () => ({ success: true, text: `✓ all tests passed (3.2s)` }),
+        'ls projects/': () => ({
+          text: projects.length > 0
+            ? projects.map(p => `📁 ${p.title}  [${p.tags.join(', ')}]`).join('\n')
+            : 'no projects yet — check back soon!'
+        }),
+        'ls experience/': () => ({
+          text: experience.map(j => `● ${j.title} @ ${j.company}  (${j.dates})`).join('\n')
+        }),
+        pwd: () => ({ text: '/home/biplav/portfolio' }),
+        date: () => ({ text: new Date().toLocaleString() }),
+        uptime: () => ({ text: `${quickStats[0]} in QA Engineering and counting...` }),
+      };
+
+      function addLine(html, className) {
+        const div = document.createElement('div');
+        if (className) div.className = className;
+        div.innerHTML = html;
+        history.appendChild(div);
+      }
+
+      function escapeHtml(str) {
+        return str.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+      }
+
+      function handleCommand(cmd) {
+        addLine(`<span class="terminal-prompt">~</span><span class="terminal-cmd">${escapeHtml(cmd)}</span>`, 'terminal-line');
+
+        if (cmd.startsWith('echo ')) {
+          addLine(escapeHtml(cmd.slice(5)), 'terminal-output');
+          return;
+        }
+
+        const handler = commands[cmd];
+        if (handler) {
+          const result = handler();
+          if (result.action === 'clear') {
+            history.innerHTML = '';
+          } else if (result.success) {
+            addLine(result.text, 'terminal-success');
+          } else if (result.pre) {
+            addLine(`<pre style="margin:0;color:var(--accent-red);font-size:13px;line-height:1.5;">${escapeHtml(result.text)}</pre>`, 'terminal-output');
+          } else {
+            addLine(`<pre style="margin:0;white-space:pre-wrap;">${escapeHtml(result.text)}</pre>`, 'terminal-output');
+          }
+        } else {
+          addLine(`command not found: ${escapeHtml(cmd)}. Type 'help' for available commands.`, 'terminal-output');
+        }
+      }
+
+      input.addEventListener('keydown', function(e) {
+        if (e.key === 'ArrowUp') {
+          e.preventDefault();
+          if (cmdHistory.length && historyIndex < cmdHistory.length - 1) {
+            historyIndex++;
+            input.value = cmdHistory[cmdHistory.length - 1 - historyIndex];
+          }
+          return;
+        }
+        if (e.key === 'ArrowDown') {
+          e.preventDefault();
+          if (historyIndex > 0) {
+            historyIndex--;
+            input.value = cmdHistory[cmdHistory.length - 1 - historyIndex];
+          } else {
+            historyIndex = -1;
+            input.value = '';
+          }
+          return;
+        }
+        if (e.key === 'Tab') {
+          e.preventDefault();
+          const partial = input.value.trim();
+          if (!partial) return;
+          const match = Object.keys(commands).find(c => c.startsWith(partial));
+          if (match) input.value = match;
+          return;
+        }
+        if (e.key !== 'Enter') return;
+        const cmd = input.value.trim();
+        if (!cmd) return;
+        input.value = '';
+        cmdHistory.push(cmd);
+        historyIndex = -1;
+
+        handleCommand(cmd);
+
+        history.scrollTop = history.scrollHeight;
+      });
+    })();
+  </script>
 </section>
 
-<section class="skills" id="skills">
-  <h2 class="section-title">Technical Skills</h2>
+{skills.length > 0 && (
+<section class="skills animate-in" id="skills">
+  <h2 class="section-title">skills</h2>
   <div class="skills-grid">
     {skills.map(skill => (
       <div class="skill-card">
@@ -62,25 +210,41 @@ const lastName = rest.join(' ');
     ))}
   </div>
 </section>
+)}
 
-<section class="experience" id="experience">
-  <h2 class="section-title">Experience</h2>
-  {experience.map(job => (
-    <div class="job">
-      <h3>{job.title}</h3>
-      <div class="company">{job.company}</div>
-      <div class="dates">{job.dates}</div>
-      <p>{job.description}</p>
-    </div>
-  ))}
+{experience.length > 0 && (
+<section class="experience animate-in" id="experience">
+  <h2 class="section-title">experience</h2>
+  <div class="exp-list">
+    {experience.map(job => (
+      <div class="job">
+        <h3>{job.title}</h3>
+        <div class="job-meta">
+          <span class="job-company">{job.company}</span>
+          <span class="job-sep" aria-hidden="true">&middot;</span>
+          <span class="job-dates">{job.dates}</span>
+        </div>
+        <p>{job.description}</p>
+      </div>
+    ))}
+  </div>
 </section>
+)}
 
-<section class="projects" id="projects">
-  <h2 class="section-title">Projects</h2>
+{projects.length > 0 && (
+<section class="projects animate-in" id="projects">
+  <h2 class="section-title">projects</h2>
   <div class="project-list">
     {projects.map(project => (
       <div class="project">
-        <h3>{project.title}</h3>
+        <div class="project-header">
+          <h3>{project.title}</h3>
+          {project.github && (
+            <a href={project.github} target="_blank" rel="noopener noreferrer" class="project-link" aria-label={`View ${project.title} on GitHub`}>
+              <svg aria-hidden="true" fill="currentColor" viewBox="0 0 24 24" width="16" height="16"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+            </a>
+          )}
+        </div>
         <p>{project.description}</p>
         <div class="tags">
           {project.tags.map(tag => <span class="tag">{tag}</span>)}
@@ -89,3 +253,4 @@ const lastName = rest.join(' ');
     ))}
   </div>
 </section>
+)}
