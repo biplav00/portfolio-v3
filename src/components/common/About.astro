@@ -117,22 +117,46 @@ const { name, role, location, bio, quickStats, skills, experience, projects } = 
         uptime: () => ({ text: `${quickStats[0]} in QA Engineering and counting...` }),
       };
 
-      function addLine(html, className) {
+      function addTextLine(text, className) {
         const div = document.createElement('div');
         if (className) div.className = className;
-        div.innerHTML = html;
+        div.textContent = text;
         history.appendChild(div);
       }
 
-      function escapeHtml(str) {
-        return str.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+      function addCmdLine(cmd) {
+        const div = document.createElement('div');
+        div.className = 'terminal-line';
+        const prompt = document.createElement('span');
+        prompt.className = 'terminal-prompt';
+        prompt.textContent = '~';
+        const cmdSpan = document.createElement('span');
+        cmdSpan.className = 'terminal-cmd';
+        cmdSpan.textContent = cmd;
+        div.appendChild(prompt);
+        div.appendChild(cmdSpan);
+        history.appendChild(div);
+      }
+
+      function addPreLine(text, className, color) {
+        const div = document.createElement('div');
+        if (className) div.className = className;
+        const pre = document.createElement('pre');
+        pre.style.margin = '0';
+        pre.style.whiteSpace = 'pre-wrap';
+        if (color) pre.style.color = color;
+        if (color) pre.style.fontSize = '13px';
+        if (color) pre.style.lineHeight = '1.5';
+        pre.textContent = text;
+        div.appendChild(pre);
+        history.appendChild(div);
       }
 
       function handleCommand(cmd) {
-        addLine(`<span class="terminal-prompt">~</span><span class="terminal-cmd">${escapeHtml(cmd)}</span>`, 'terminal-line');
+        addCmdLine(cmd);
 
         if (cmd.startsWith('echo ')) {
-          addLine(escapeHtml(cmd.slice(5)), 'terminal-output');
+          addTextLine(cmd.slice(5), 'terminal-output');
           return;
         }
 
@@ -140,16 +164,16 @@ const { name, role, location, bio, quickStats, skills, experience, projects } = 
         if (handler) {
           const result = handler();
           if (result.action === 'clear') {
-            history.innerHTML = '';
+            history.replaceChildren();
           } else if (result.success) {
-            addLine(result.text, 'terminal-success');
+            addTextLine(result.text, 'terminal-success');
           } else if (result.pre) {
-            addLine(`<pre style="margin:0;color:var(--accent-red);font-size:13px;line-height:1.5;">${escapeHtml(result.text)}</pre>`, 'terminal-output');
+            addPreLine(result.text, 'terminal-output', 'var(--accent-red)');
           } else {
-            addLine(`<pre style="margin:0;white-space:pre-wrap;">${escapeHtml(result.text)}</pre>`, 'terminal-output');
+            addPreLine(result.text, 'terminal-output');
           }
         } else {
-          addLine(`command not found: ${escapeHtml(cmd)}. Type 'help' for available commands.`, 'terminal-output');
+          addTextLine(`command not found: ${cmd}. Type 'help' for available commands.`, 'terminal-output');
         }
       }
 

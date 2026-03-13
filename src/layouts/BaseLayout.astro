@@ -79,6 +79,8 @@ const ogImage = new URL(image, Astro.site);
       <Footer />
     </div>
     <script is:inline>
+      document.documentElement.classList.add('js-ready');
+
       const savedTheme = localStorage.getItem('theme');
       if (savedTheme) {
         document.documentElement.setAttribute('data-theme', savedTheme);
@@ -122,7 +124,15 @@ const ogImage = new URL(image, Astro.site);
         initScrollAnimations();
       }
     </script>
-    <script defer src="/_vercel/insights/script.js"></script>
-    <script defer src="/_vercel/analytics/script.js"></script>
+    <script is:inline>
+      if (window.location.hostname !== 'localhost' && window.location.hostname !== '127.0.0.1') {
+        ['/_vercel/insights/script.js', '/_vercel/analytics/script.js'].forEach(function(src) {
+          var s = document.createElement('script');
+          s.defer = true;
+          s.src = src;
+          document.body.appendChild(s);
+        });
+      }
+    </script>
   </body>
 </html>
