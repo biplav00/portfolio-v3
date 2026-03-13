@@ -10,13 +10,13 @@ const currentPath = Astro.url.pathname;
 <header>
   <div class="header-container">
     <a href="/" class="header-logo">biplav00</a>
-    <nav class="header-nav">
+    <nav class="header-nav" aria-label="Main navigation">
       {navLinks.map(link => {
         const isActive = link.href === '/'
           ? currentPath === '/'
           : currentPath.startsWith(link.href);
         return (
-          <a href={link.href} class:list={["header-link", { active: isActive }]}>{link.label}</a>
+          <a href={link.href} class:list={["header-link", { active: isActive }]} aria-current={isActive ? "page" : undefined}>{link.label}</a>
         );
       })}
       <button type="button" class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle theme">

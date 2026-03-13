@@ -31,6 +31,9 @@ const articleJsonLd = JSON.stringify({
   headline: post.data.title,
   description: post.data.description,
   datePublished: post.data.publishDate.toISOString(),
+  ...(post.data.updatedDate && {
+    dateModified: post.data.updatedDate.toISOString(),
+  }),
   author: {
     '@type': 'Person',
     name: 'Biplav Subedi',
@@ -84,7 +87,7 @@ const articleJsonLd = JSON.stringify({
 
     {post.data.coverImage && (
       <div class="post-hero-image">
-        <img src={post.data.coverImage} alt={post.data.title} />
+        <img src={post.data.coverImage} alt={post.data.title} loading="lazy" decoding="async" />
       </div>
     )}
 
