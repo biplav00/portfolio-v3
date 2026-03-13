@@ -8,7 +8,7 @@ export async function GET(context: APIContext) {
   const site = context.site ?? new URL('https://biplavsubedi.com.np');
 
   return rss({
-    title: 'Biplav Subedi - Blog',
+    title: 'Biplav Subedi - Blogs',
     description:
       'Technical blog about QA engineering, testing best practices, and software quality',
     site,

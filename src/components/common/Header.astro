@@ -1,19 +1,26 @@
 ---
 const navLinks = [
-  { href: '/', label: 'About' },
-  { href: '/blog', label: 'Blogs' },
+  { href: '/', label: 'about' },
+  { href: '/blog', label: 'blogs' },
 ];
+
+const currentPath = Astro.url.pathname;
 ---
 
 <header>
   <div class="header-container">
     <a href="/" class="header-logo">biplav00</a>
     <nav class="header-nav">
-      {navLinks.map(link => (
-        <a href={link.href} class="header-link">{link.label}</a>
-      ))}
+      {navLinks.map(link => {
+        const isActive = link.href === '/'
+          ? currentPath === '/'
+          : currentPath.startsWith(link.href);
+        return (
+          <a href={link.href} class:list={["header-link", { active: isActive }]}>{link.label}</a>
+        );
+      })}
       <button type="button" class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle theme">
-        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <svg class="icon-sun" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
           <circle cx="12" cy="12" r="5" />
           <line x1="12" y1="1" x2="12" y2="3" />
           <line x1="12" y1="21" x2="12" y2="23" />
@@ -23,6 +30,9 @@ const navLinks = [
           <line x1="21" y1="12" x2="23" y2="12" />
           <line x1="4.22" y1="19.78" x2="5.64" y2="18.36" />
           <line x1="18.36" y1="5.64" x2="19.78" y2="4.22" />
+        </svg>
+        <svg class="icon-moon" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
+          <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
         </svg>
       </button>
     </nav>

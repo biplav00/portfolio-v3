@@ -8,5 +8,10 @@ export default defineConfig({
   server: {
     port: 4321,
   },
-  integrations: [mdx(), sitemap()],
+  integrations: [
+    mdx(),
+    sitemap({
+      filter: (page) => !page.includes('/404'),
+    }),
+  ],
 });

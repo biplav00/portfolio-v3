@@ -1,5 +1,9 @@
 ---
 import '../styles/global.css';
+import '@fontsource-variable/inter';
+import '@fontsource-variable/outfit';
+import '@fontsource-variable/jetbrains-mono';
+import { ClientRouter } from 'astro:transitions';
 import Footer from '../components/common/Footer.astro';
 import Header from '../components/common/Header.astro';
 
@@ -13,7 +17,7 @@ interface Props {
 
 const {
   title,
-  description = 'QA Engineer Portfolio',
+  description = 'Biplav Subedi — QA Engineer focused on test automation, CI/CD integration, and building reliable software.',
   image = '/og-image.png',
   type = 'website',
   noindex = false,
@@ -28,16 +32,18 @@ const ogImage = new URL(image, Astro.site);
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Outfit:wght@400;500;600;700&display=swap" />
+    <ClientRouter />
     <meta name="description" content={description} />
-    <meta name="theme-color" content="#050505" />
+    <meta name="theme-color" content="#0a0b10" media="(prefers-color-scheme: dark)" />
+    <meta name="theme-color" content="#f5f6fa" media="(prefers-color-scheme: light)" />
     <meta name="color-scheme" content="dark light" />
     <meta name="robots" content={noindex ? 'noindex, nofollow' : 'index, follow'} />
+    <meta name="author" content="Biplav Subedi" />
+    <meta name="generator" content={Astro.generator} />
 
     <link rel="canonical" href={canonicalURL} />
-    <link rel="alternate" type="application/rss+xml" title="Biplav Subedi - Blog" href="/rss.xml" />
+    <link rel="alternate" type="application/rss+xml" title="Biplav Subedi - Blogs" href="/rss.xml" />
+    <link rel="manifest" href="/manifest.json" />
 
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
@@ -48,11 +54,15 @@ const ogImage = new URL(image, Astro.site);
     <meta property="og:site_name" content="Biplav Subedi" />
 
     <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:site" content="@biplav00" />
+    <meta name="twitter:creator" content="@biplav00" />
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={description} />
     <meta name="twitter:image" content={ogImage} />
 
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png" />
+    <link rel="apple-touch-icon" sizes="192x192" href="/favicon-192.png" />
     <title>{title}</title>
 
     <slot name="head" />
@@ -82,6 +92,34 @@ const ogImage = new URL(image, Astro.site);
         const newTheme = current === 'dark' ? 'light' : 'dark';
         html.setAttribute('data-theme', newTheme);
         localStorage.setItem('theme', newTheme);
+      }
+
+      document.addEventListener('astro:after-swap', () => {
+        const t = localStorage.getItem('theme');
+        if (t) document.documentElement.setAttribute('data-theme', t);
+        else if (window.matchMedia('(prefers-color-scheme: light)').matches) {
+          document.documentElement.setAttribute('data-theme', 'light');
+        }
+        initScrollAnimations();
+      });
+
+      function initScrollAnimations() {
+        const els = document.querySelectorAll('.animate-in');
+        if (!els.length) return;
+        const observer = new IntersectionObserver((entries) => {
+          entries.forEach(entry => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add('visible');
+              observer.unobserve(entry.target);
+            }
+          });
+        }, { threshold: 0.05, rootMargin: '0px 0px -50px 0px' });
+        els.forEach(el => observer.observe(el));
+      }
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', initScrollAnimations);
+      } else {
+        initScrollAnimations();
       }
     </script>
     <script defer src="/_vercel/insights/script.js"></script>

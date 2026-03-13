@@ -10,20 +10,58 @@ const jsonLd = JSON.stringify({
     {
       '@type': 'WebSite',
       name: 'Biplav Subedi',
+      alternateName: ['Biplav Subedi QA Engineer', 'biplav00'],
       url: siteUrl,
     },
     {
-      '@type': 'Person',
-      name: 'Biplav Subedi',
-      url: siteUrl,
-      jobTitle: 'QA Engineer',
-      sameAs: ['https://github.com', 'https://linkedin.com', 'https://twitter.com'],
+      '@type': 'ProfilePage',
+      mainEntity: {
+        '@type': 'Person',
+        '@id': `${siteUrl}/#person`,
+        name: 'Biplav Subedi',
+        givenName: 'Biplav',
+        familyName: 'Subedi',
+        url: siteUrl,
+        jobTitle: 'QA Engineer',
+        description:
+          'QA Engineer focused on test automation, CI/CD integration, and building reliable software. Currently at Yirifi.ai.',
+        email: 'biplavsubedi0@gmail.com',
+        image: `${siteUrl}/og-image.png`,
+        address: {
+          '@type': 'PostalAddress',
+          addressLocality: 'Kathmandu',
+          addressCountry: 'NP',
+        },
+        knowsAbout: [
+          'Test Automation',
+          'Playwright',
+          'Selenium',
+          'CI/CD',
+          'API Testing',
+          'Python',
+          'TypeScript',
+        ],
+        worksFor: {
+          '@type': 'Organization',
+          name: 'Yirifi.ai',
+        },
+        alumniOf: {
+          '@type': 'Organization',
+          name: 'Karobar Pvt. Ltd.',
+        },
+        sameAs: [
+          'https://github.com/biplav00',
+          'https://linkedin.com/in/biplav00',
+          'https://x.com/biplav00',
+        ],
+      },
     },
   ],
 });
 ---
 
-<BaseLayout title="Biplav Subedi - QA Engineer" description="QA Engineer specializing in test automation, API testing, and software reliability">
+<BaseLayout title="Biplav Subedi — QA Engineer | Test Automation, CI/CD, Playwright" description="Biplav Subedi is a QA Engineer from Kathmandu, Nepal focused on test automation, CI/CD integration, and building reliable software. Currently at Yirifi.ai.">
+  <meta slot="head" name="keywords" content="Biplav Subedi, QA Engineer, Test Automation, Playwright, CI/CD, Kathmandu, Nepal, biplav00" />
   <script slot="head" type="application/ld+json" set:html={jsonLd} />
   <About />
   <ContactSidebar />
